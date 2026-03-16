@@ -84,3 +84,11 @@ print(attn_score_22)
 #整个的注意力分数
 attn_score_2 = query_2 @ keys.T
 print(attn_score_2)
+
+d_k = keys.shape[-1]
+attn_weights_2 = torch.softmax(attn_score_2/d_k**0.5,dim=-1)
+print(attn_weights_2)
+
+#求所有上下文
+context_vec_2 = attn_weights_2 @ values
+print(context_vec_2)
