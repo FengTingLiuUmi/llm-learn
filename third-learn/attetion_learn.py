@@ -50,3 +50,37 @@ print(attn_weight)
 #权重 * 每一行得到对应的上下文向量
 all_context_vecs =  attn_weight @ inputs
 print(all_context_vecs)
+
+
+#可训练权重
+#第二个词的 词嵌入
+x_2 = inputs[1]
+d_in = inputs.shape[1]
+d_out = 2
+
+#初始化 自适应权重矩阵
+torch.manual_seed(123)
+W_query = torch.nn.Parameter(torch.rand(d_in,d_out),requires_grad=False)
+W_key = torch.nn.Parameter(torch.rand(d_in,d_out),requires_grad=False)
+W_value = torch.nn.Parameter(torch.rand(d_in,d_out),requires_grad=False)
+
+#计算 词嵌入 经过每个权重矩阵后的值
+query_2 = x_2 @ W_query
+key_2 = x_2 @ W_key
+value_2 = x_2 @ W_value
+print(query_2)
+
+#整个 句子的词嵌入的权重计算
+keys = inputs @ W_key
+values = inputs @ W_value
+print("keys.shape",keys.shape)
+print("value.shape",values.shape)
+
+#计算最终的注意力分数
+keys_2 = keys[1]
+attn_score_22 = query_2.dot(keys_2)
+print(attn_score_22)
+
+#整个的注意力分数
+attn_score_2 = query_2 @ keys.T
+print(attn_score_2)
