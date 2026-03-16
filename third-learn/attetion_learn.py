@@ -30,3 +30,23 @@ context_vec_2 = torch.zeros(query.shape)
 for i,x_i in enumerate(inputs):
     context_vec_2 += attn_weight_2_naive[i] * x_i
 print(context_vec_2)
+
+
+#计算所有的 上下文 通过点积 计算所有的注意力权重
+attn_scores = torch.empty(6,6)
+for i,x_i in enumerate(inputs):
+    for j , x_j in enumerate(inputs):
+        attn_scores[i,j] = torch.dot(x_i,x_j)
+print(attn_scores)
+
+#使用矩阵乘法代替 cpu串行 -> gpu并行
+new_attn_score = inputs @ inputs.T
+print(new_attn_score)
+
+#对权重进行归一化处理 得到最终的权重
+attn_weight = torch.softmax(new_attn_score,dim=-1)
+print(attn_weight)
+
+#权重 * 每一行得到对应的上下文向量
+all_context_vecs =  attn_weight @ inputs
+print(all_context_vecs)
