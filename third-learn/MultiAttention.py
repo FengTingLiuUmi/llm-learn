@@ -42,3 +42,11 @@ print("context_Vecs ", context_vecs.shape)
 #练习 3.2 更改MultiHeadAttentionWrapper(..., num_heads=2)调用的输入参数，使输出上下文向量是二维而不是四维
 
 #4维 是两个 2维度的单头拼接而成 因此 将 dim_out 改为 1即可
+torch.manual_seed(123)
+context_len = batch.shape[1]
+# 输入维度 和 输出维度
+d_in, d_out = 3, 1
+mha = MultiAttentionWrapper(d_in, d_out, context_len, 0.0, num_heads=2)
+context_vecs = mha(batch)
+print("context_vecs: ",context_vecs)
+print("context_Vecs ", context_vecs.shape)
