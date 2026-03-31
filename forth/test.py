@@ -2,6 +2,7 @@ import tiktoken
 import torch
 import gpt_learn
 import torch.nn as nn
+import matplotlib.pyplot as plt
 
 tokenizer = tiktoken.get_encoding("gpt2")
 batch = []
@@ -53,3 +54,24 @@ mean = out_ln.mean(dim=-1, keepdim=True)
 var = out_ln.var(dim=-1, keepdim=True)
 print("mean", mean)
 print("var", var)
+
+# GELU函数和 ReLU函数对比
+gelu, relu = gpt_learn.GELU(), nn.ReLU()
+
+# 在 -3 - 3 间 创建 100个数据点
+x = torch.linspace(-3, 3, 100)
+y_gelu, y_relu = gelu(x), relu(x)
+plt.figure(figsize=(8, 3))
+for i, (y, label) in enumerate(zip([y_gelu, y_relu], ["GELU", "RELU"]), 1):
+    plt.subplot(1, 2, i)
+    plt.plot(x, y)
+    plt.title(f"{label} activation function")
+    plt.xlabel("x")
+    plt.ylabel(f"{label} {x}")
+    plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+#FeedForward模块测试
+
+
