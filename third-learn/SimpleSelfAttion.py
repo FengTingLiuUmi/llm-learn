@@ -1,4 +1,4 @@
-from tkinter.scrolledtext import example
+
 
 import torch
 import torch.nn as nn

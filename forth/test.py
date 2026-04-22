@@ -4,6 +4,8 @@ import gpt_learn
 import torch.nn as nn
 import matplotlib.pyplot as plt
 
+from forth.gpt_learn import ExampleDeepNeuralNetwork
+
 tokenizer = tiktoken.get_encoding("gpt2")
 batch = []
 txt1 = "Every effort moves you"
@@ -72,6 +74,23 @@ for i, (y, label) in enumerate(zip([y_gelu, y_relu], ["GELU", "RELU"]), 1):
 plt.tight_layout()
 plt.show()
 
-#FeedForward模块测试
+# FeedForward模块测试
+
+def print_gradintes(model, x):
+    output = model(x)  # 向前传播
+    target = torch.tensor([[0.]])
+
+    loss = nn.MSELoss()  # 损失函数
+    loss = loss(output, target)
+    loss.backward()  # 反向传播
+
+    for name, param in model.named_parameters():
+        if 'weight' in name:
+            print(f"{name} has gradient mean of {param.grad.abs().mean().item()}")
 
 
+layer_sizes = [3, 3, 3, 3, 3, 1]
+sample_input = torch.tensor([1.,0.,-1.])
+torch.manual_seed(123)
+model_without_shortcut = ExampleDeepNeuralNetwork(layer_sizes,use_shortcut=False)
+print_gradintes(model_without_shortcut,sample_input)
