@@ -3,15 +3,15 @@ import torch
 import gpt_learn
 import torch.nn as nn
 import matplotlib.pyplot as plt
-<<<<<<< HEAD
+
 import Transformer
 
 from forth.Transformer import TransformerBlock, GPTModel
 from forth.gpt_learn import LayerNorm
-=======
+
 
 from forth.gpt_learn import ExampleDeepNeuralNetwork
->>>>>>> ca5a63ac333eb1f37bc7695e2892bffdf6bc7861
+
 
 tokenizer = tiktoken.get_encoding("gpt2")
 batch = []
@@ -67,7 +67,7 @@ var = out_ln.var(dim=-1, keepdim=True)
 print("mean", mean)
 print("var", var)
 
-<<<<<<< HEAD
+
 #测试激活函数区别
 
 gelu, relu = gpt_learn.GELU(), nn.ReLU()
@@ -81,7 +81,7 @@ for i , (y, label) in enumerate(zip([y_gelu,y_relu] , ['GELU' , 'RELU']),1) :
     plt.title(f"{label} activation function")
     plt.xlabel("x")
     plt.ylabel(f"{label} (x)")
-=======
+
 # GELU函数和 ReLU函数对比
 gelu, relu = gpt_learn.GELU(), nn.ReLU()
 
@@ -95,12 +95,12 @@ for i, (y, label) in enumerate(zip([y_gelu, y_relu], ["GELU", "RELU"]), 1):
     plt.title(f"{label} activation function")
     plt.xlabel("x")
     plt.ylabel(f"{label} {x}")
->>>>>>> ca5a63ac333eb1f37bc7695e2892bffdf6bc7861
+
     plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-<<<<<<< HEAD
+
 gpt_config_124M = {
     "vocab_size": 50257,  # 词汇表大小
     "context_length": 1024,  # 上下文长度
@@ -152,7 +152,7 @@ print(decoded_text)
 
 
 
-=======
+
 # FeedForward模块测试
 
 def print_gradintes(model, x):
@@ -173,4 +173,4 @@ sample_input = torch.tensor([1.,0.,-1.])
 torch.manual_seed(123)
 model_without_shortcut = ExampleDeepNeuralNetwork(layer_sizes,use_shortcut=False)
 print_gradintes(model_without_shortcut,sample_input)
->>>>>>> ca5a63ac333eb1f37bc7695e2892bffdf6bc7861
+

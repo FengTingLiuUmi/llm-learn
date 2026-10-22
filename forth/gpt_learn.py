@@ -88,7 +88,7 @@ class GELU(nn.Module):
     def forward(self, x):
         return 0.5 * x * (1 + torch.tanh(torch.sqrt(torch.tensor(2.0 / torch.pi)) * (x + 0.44715 * torch.pow(x, 3))))
 
-<<<<<<< HEAD
+
 class FeedForward(nn.Module): #前馈神经网络
 
     #两个线性层 + GELU激活函数
@@ -125,7 +125,7 @@ class ExampleDeepNeuralNetwork(nn.Module):
             nn.Sequential(nn.Linear(layer_sizes[4], layer_sizes[5]), GELU()),
         ]
         )
-=======
+
 
 # 前馈神经网络模块
 
@@ -157,7 +157,7 @@ class ExampleDeepNeuralNetwork(nn.Module):
             nn.Sequential(nn.Linear(layer_sizes[4], layer_sizes[5]), GELU()),
         ])
 
->>>>>>> ca5a63ac333eb1f37bc7695e2892bffdf6bc7861
+
     def forward(self, x):
         for layer in self.layers:
             layer_output = layer(x)
@@ -167,7 +167,7 @@ class ExampleDeepNeuralNetwork(nn.Module):
                 x = layer_output
         return x
 
-<<<<<<< HEAD
+
 layer_sizes = [3,3,3,3,3,1]
 sample_input = torch.tensor([[1.,0.,-1.]])
 torch.manual_seed(123)
@@ -211,5 +211,4 @@ print('我是分割线23333')
 #layers.2.0.weight has gradient mean of 0.008882959373295307
 #layers.3.0.weight has gradient mean of 0.04793110489845276
 #
-=======
->>>>>>> ca5a63ac333eb1f37bc7695e2892bffdf6bc7861
+
