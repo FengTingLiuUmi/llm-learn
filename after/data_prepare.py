@@ -15,13 +15,12 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import tiktoken
 import torch
-import classify
 # Import Dynamo before TensorFlow is loaded by gpt_download to avoid a native
 # Triton/TensorFlow initialization crash with recent PyTorch nightly builds.
 import torch._dynamo  # noqa: F401
 from torch.utils.data import Dataset, DataLoader
 
-from previous_chapters import GPTModel, load_weights_into_gpt
+from after.previous_chapters import GPTModel, load_weights_into_gpt
 
 def generate_text_sample(model , idx , max_new_tokens , context_size):
     for _ in range(max_new_tokens):
@@ -474,18 +473,14 @@ if __name__ == "__main__":
         " selected to receive $1000 cash or a $2000 award."
     )
 
-    print(classify.classify_review(
-        text_1, model, tokenizer, device, max_length=train_dataset.max_length
-    ))
+
 
     text_2 = (
         "Hey, just wanted to check if we're still on"
         " for dinner tonight? Let me know!"
     )
 
-    print(classify.classify_review(
-        text_2, model, tokenizer, device, max_length=train_dataset.max_length
-    ))
+
 
     #最后保存模型
     torch.save(model.state_dict(), "review_classifier.pth")
